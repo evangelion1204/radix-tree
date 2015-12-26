@@ -1,0 +1,30 @@
+{
+  "name": "radix-tree",
+  "version": "0.1.0",
+  "description": "Node.js version of a radix tree usable for routers or any other kind of string/hash based lookup",
+  "main": "index.js",
+  "scripts": {
+    "pretest": "babel . --extensions .es6 --out-dir .",
+    "test": "mocha --harmony test --recursive"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/evangelion1204/radix-tree.git"
+  },
+  "dependencies": {
+    "babel-cli": "^6.2.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.2.0",
+    "babel-plugin-transform-es2015-parameters": "^6.1.18",
+    "chai": "^3.4.1",
+    "lodash": "^3.10.1",
+    "mocha": "^2.3.4",
+    "sinon": "^1.17.2",
+    "sinon-chai": "^2.8.0"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/evangelion1204/radix-tree/issues"
+  },
+  "homepage": "https://github.com/evangelion1204/radix-tree#readme"
+}
