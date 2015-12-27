@@ -28,4 +28,10 @@ describe('Tree', function() {
         expect(instance.isEmpty()).not.to.be.true
     })
 
+    it('should return undefined using find in an empty tree', function () {
+        let instance = new Tree()
+
+        expect(instance.find('/users')).not.to.be.not.defined
+    })
+
 })

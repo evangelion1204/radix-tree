@@ -13,6 +13,12 @@ export default class Tree {
         }
     }
 
+    find(path) {
+        if (this.isEmpty()) {
+            return undefined
+        }
+    }
+
     isEmpty() {
         return this.root === null
     }
