@@ -24,8 +24,12 @@ instance.add('/cart/add')
 instance.add('/cart/change')
 instance.add('/cart/delete')
 
-let benchmark = new Benchmark('find', function () {
-    instance.find('/account/addresses/add')
+let benchmark = new Benchmark('find', {
+    //minTime: ,
+    minSamples: 300,
+    fn: function () {
+        instance.find('/account/addresses/add')
+    }
 })
 
 benchmark.run()

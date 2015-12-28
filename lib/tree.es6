@@ -19,7 +19,7 @@ export default class Tree {
         node_loop:
         while (node) {
             let patterns = Object.keys(node.children)
-            path = path.replace(node.path, '')
+            path = path.substr(node.path.length)
 
             if (path.length === 0) {
                 console.log('exact match, replacing')
@@ -73,7 +73,7 @@ export default class Tree {
 
         while (node) {
             let patterns = Object.keys(node.children)
-            path = path.replace(node.path, '')
+            path = path.substr(node.path.length)
 
             if (path.length === 0) {
                 return node
