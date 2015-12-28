@@ -19,16 +19,34 @@ describe('Node', function() {
 
         expect(instance.path).to.be.equal('part')
         expect(instance.fullPath).to.be.equal('full')
-        expect(instance.children).to.be.an('Array')
+        expect(instance.children).to.be.an('object')
         expect(instance.data).to.be.equal('data')
+        expect(instance.priority).to.be.equal(1)
     })
 
     it('children should be accessable and can be appended', function () {
         let parent = new Node('/parent', '/parent')
         let child = new Node('/child', '/parent/child')
 
-        expect(parent.children.length).to.be.equal(0)
+        expect(Object.keys(parent.children).length).to.be.equal(0)
         parent.append(child)
-        expect(parent.children.length).to.be.equal(1)
+        expect(Object.keys(parent.children).length).to.be.equal(1)
     })
+
+    it.skip('updatePriority should increase priority for every child', function () {
+        let parent = new Node('/parent', '/parent')
+        let child = new Node('/child', '/parent/child')
+        let grandChild = new Node('/grandchild', '/parent/child/grandchild')
+
+        expect(parent.priority).to.be.equal(1)
+        parent.append(child)
+        parent.updatePriority()
+        expect(parent.priority).to.be.equal(1)
+        child.append(grandChild)
+        child.updatePriority()
+        parent.updatePriority()
+        expect(child.priority).to.be.equal(1)
+        expect(parent.priority).to.be.equal(2)
+    })
+
 })

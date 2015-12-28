@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "pretest": "babel . --extensions .es6 --out-dir .",
-    "test": "mocha --harmony test --recursive"
+    "prebench": "babel . --extensions .es6 --out-dir .",
+    "test": "mocha --harmony test --recursive",
+    "bench": "node --harmony benchmark.js"
   },
   "repository": {
     "type": "git",
@@ -26,5 +28,8 @@
   "bugs": {
     "url": "https://github.com/evangelion1204/radix-tree/issues"
   },
-  "homepage": "https://github.com/evangelion1204/radix-tree#readme"
+  "homepage": "https://github.com/evangelion1204/radix-tree#readme",
+  "devDependencies": {
+    "benchmark": "^1.0.0"
+  }
 }
