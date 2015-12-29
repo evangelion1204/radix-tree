@@ -100,20 +100,23 @@ export default class Tree {
     find(path) {
         let node = this.root
         let offset = 0
+        let pathLength = path.length
 
+        node_loop:
         while (node) {
             offset += node.path.length
 
-            if ((path.length - offset) === 0) {
+            if (pathLength === offset) {
                 return node
             }
 
-            for (let child of node.children) {
+            for (let index = 0; index < node.children.length; index++) {
+                let child = node.children[index]
+
                 if (path[offset] === child.path[0]) {
                     node = child
                     break
                 }
-
             }
         }
 
