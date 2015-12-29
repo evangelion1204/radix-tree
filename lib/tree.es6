@@ -55,23 +55,25 @@ export default class Tree {
                             }
                         }
 
-                        console.log(path, selectedNode.path, pathCompareIndex)
-                        //console.log(pathCompareIndex, path.length, selectedNode.path.length)
-
                         if (pathCompareIndex >= selectedNode.path.length) {
                             node = selectedNode
                             continue node_loop
                         } else if (pathCompareIndex >= path.length) {
-                            console.log('ends with')
+                            let newChild = new Node(path, fullPath, data)
+
+                            selectedNode.path = selectedNode.path.replace(path, '')
+
+                            node.remove(selectedNode)
+                            node.append(newChild)
+                            newChild.priority = selectedNode.priority + 1
+                            newChild.append(selectedNode)
+
+                            return this
                         } else if (pathCompareIndex > 0) {
-                            console.log('part match')
-                            //let newGrandChild = selectedNode
                             let newEdge = new Node(path.substr(0, pathCompareIndex), '', null)
 
                             path = path.substr(pathCompareIndex)
                             selectedNode.path = selectedNode.path.substr(pathCompareIndex)
-
-                            //console.log('path', newEdge/, selectedNode.path)
 
                             node.remove(selectedNode)
                             node.append(newEdge)
@@ -79,13 +81,12 @@ export default class Tree {
                             newEdge.priority = selectedNode.priority + 1
                             newEdge.append(selectedNode)
 
-                            node = newEdgeW
+                            node = newEdge
                         }
                     }
                 }
             }
 
-            console.log('leaving', path)
             console.log('No matching child found, appending')
             node.append(new Node(path, fullPath, data))
 
@@ -98,22 +99,21 @@ export default class Tree {
 
     find(path) {
         let node = this.root
+        let offset = 0
 
         while (node) {
-            let patterns = Object.keys(node.children)
-            path = path.substr(node.path.length)
+            offset += node.path.length
 
-            if (path.length === 0) {
+            if ((path.length - offset) === 0) {
                 return node
             }
 
-            if (patterns.length) {
-                for (let pattern of patterns) {
-                    if (path.startsWith(pattern)) {
-                        node = node.children[pattern]
-                        break
-                    }
+            for (let child of node.children) {
+                if (path[offset] === child.path[0]) {
+                    node = child
+                    break
                 }
+
             }
         }
 

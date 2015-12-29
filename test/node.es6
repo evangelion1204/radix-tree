@@ -19,7 +19,7 @@ describe('Node', function() {
 
         expect(instance.path).to.be.equal('part')
         expect(instance.fullPath).to.be.equal('full')
-        expect(instance.children).to.be.an('object')
+        expect(instance.children).to.be.an('array')
         expect(instance.data).to.be.equal('data')
         expect(instance.priority).to.be.equal(1)
     })
@@ -28,9 +28,9 @@ describe('Node', function() {
         let parent = new Node('/parent', '/parent')
         let child = new Node('/child', '/parent/child')
 
-        expect(Object.keys(parent.children).length).to.be.equal(0)
+        expect(parent.children.length).to.be.equal(0)
         parent.append(child)
-        expect(Object.keys(parent.children).length).to.be.equal(1)
+        expect(parent.children.length).to.be.equal(1)
     })
 
     it.skip('updatePriority should increase priority for every child', function () {

@@ -40,70 +40,65 @@ describe('Tree', function() {
         let instance = new Tree()
 
         instance.add('/account')
-        instance.add('/cart')
-        //instance.add('/account/users')
-        //instance.add('/account/users/add')
-        //instance.add('/account/users/change')
-        //instance.add('/account/users/delete')
-        //instance.add('/account/addresses')
-        //instance.add('/account/addresses/add')
-        //instance.add('/account/addresses/change')
-        //instance.add('/account/addresses/delete')
-
-        console.log(JSON.stringify(instance.root))
+        instance.add('/account/users')
+        instance.add('/account/users/add')
+        instance.add('/account/users/change')
+        instance.add('/account/users/delete')
+        instance.add('/account/addresses')
+        instance.add('/account/addresses/add')
+        instance.add('/account/addresses/change')
+        instance.add('/account/addresses/delete')
 
         expect(instance.root.priority).to.be.equal(10)
     })
-    //
-    //it('should be possible to add new plain entries', function () {
-    //    let instance = new Tree()
-    //
-    //    instance.add('/account')
-    //    instance.add('/account/users')
-    //    instance.add('/account/users/add')
-    //    instance.add('/account/users/change')
-    //    instance.add('/account/users/delete')
-    //    instance.add('/catalog')
-    //    instance.add('/catalog/articles')
-    //    instance.add('/catalog/articles/add')
-    //    instance.add('/catalog/articles/change')
-    //    instance.add('/catalog/articles/delete')
-    //
-    //    console.log(JSON.stringify(instance.root))
-    //
-    //    expect(instance.root.priority).to.be.equal(11)
-    //})
 
-    //it('should return the node on exact match of the path', function () {
-    //    let instance = new Tree()
-    //
-    //    instance.add('/account')
-    //    instance.add('/account/users')
-    //    instance.add('/account/users/add')
-    //
-    //    expect(instance.find('/account').fullPath).to.be.equal('/account')
-    //    expect(instance.find('/account/users').fullPath).to.be.equal('/account/users')
-    //    expect(instance.find('/account/users/add').fullPath).to.be.equal('/account/users/add')
-    //
-    //    expect(instance.find('/account').priority).to.be.equal(3)
-    //    expect(instance.find('/account/users').priority).to.be.equal(2)
-    //    expect(instance.find('/account/users/add').priority).to.be.equal(1)
-    //})
-    //
-    //it('should return the node on exact match of the path, even if added in inverse order', function () {
-    //    let instance = new Tree()
-    //
-    //    instance.add('/account/users/add')
-    //    instance.add('/account/users')
-    //    instance.add('/account')
-    //
-    //    expect(instance.find('/account').fullPath).to.be.equal('/account')
-    //    expect(instance.find('/account/users').fullPath).to.be.equal('/account/users')
-    //    expect(instance.find('/account/users/add').fullPath).to.be.equal('/account/users/add')
-    //
-    //    expect(instance.find('/account').priority).to.be.equal(3)
-    //    expect(instance.find('/account/users').priority).to.be.equal(2)
-    //    expect(instance.find('/account/users/add').priority).to.be.equal(1)
-    //})
+    it('should be possible to add new plain entries', function () {
+        let instance = new Tree()
+
+        instance.add('/account')
+        instance.add('/account/users')
+        instance.add('/account/users/add')
+        instance.add('/account/users/change')
+        instance.add('/account/users/delete')
+        instance.add('/catalog')
+        instance.add('/catalog/articles')
+        instance.add('/catalog/articles/add')
+        instance.add('/catalog/articles/change')
+        instance.add('/catalog/articles/delete')
+
+        expect(instance.root.priority).to.be.equal(11)
+    })
+
+    it('should return the node on exact match of the path', function () {
+        let instance = new Tree()
+
+        instance.add('/account')
+        instance.add('/account/users')
+        instance.add('/account/users/add')
+
+        expect(instance.find('/account').fullPath).to.be.equal('/account')
+        expect(instance.find('/account/users').fullPath).to.be.equal('/account/users')
+        expect(instance.find('/account/users/add').fullPath).to.be.equal('/account/users/add')
+
+        expect(instance.find('/account').priority).to.be.equal(3)
+        expect(instance.find('/account/users').priority).to.be.equal(2)
+        expect(instance.find('/account/users/add').priority).to.be.equal(1)
+    })
+
+    it('should return the node on exact match of the path, even if added in inverse order', function () {
+        let instance = new Tree()
+
+        instance.add('/account/users/add')
+        instance.add('/account/users')
+        instance.add('/account')
+
+        expect(instance.find('/account').fullPath).to.be.equal('/account')
+        expect(instance.find('/account/users').fullPath).to.be.equal('/account/users')
+        expect(instance.find('/account/users/add').fullPath).to.be.equal('/account/users/add')
+
+        expect(instance.find('/account').priority).to.be.equal(3)
+        expect(instance.find('/account/users').priority).to.be.equal(2)
+        expect(instance.find('/account/users/add').priority).to.be.equal(1)
+    })
 
 })
