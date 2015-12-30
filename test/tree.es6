@@ -104,12 +104,15 @@ describe('Tree', function() {
     it('should return the node on exact match of the path, even if added in inverse order', function () {
         let instance = new Tree()
 
-
         instance.add('/users')
-        instance.add('/users/:id')
+        instance.add('/users/:userId')
+        instance.add('/users/:userId/messages')
+        instance.add('/users/:userId/messages/:messageId')
 
         expect(instance.find('/users').fullPath).to.be.equal('/users')
-        expect(instance.find('/users/testuser').fullPath).to.be.equal('/users')
+        expect(instance.find('/users/testuser').fullPath).to.be.equal('/users/:userId')
+        expect(instance.find('/users/testuser/messages').fullPath).to.be.equal('/users/:userId/messages')
+        expect(instance.find('/users/testuser/messages/123').fullPath).to.be.equal('/users/:userId/messages/:messageId')
     })
 
 })

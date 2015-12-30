@@ -10,6 +10,7 @@ export default class Node {
         //this.indices = ''
         this.data = data
         this.priority = 1
+        this.type = Node.DEFAULT
     }
 
     append(node) {
@@ -29,3 +30,6 @@ export default class Node {
         //console.log(this)
     }
 }
+
+Node.DEFAULT = 0
+Node.PARAM = 1

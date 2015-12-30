@@ -15,6 +15,9 @@ export default class Tree {
 
         const fullPath = path
         let node = this.root
+        let paramCount = this.countParams(path)
+
+        console.log('Param Count', paramCount)
 
         node_loop:
         while (node) {
@@ -75,7 +78,7 @@ export default class Tree {
             }
 
             console.log('No matching child found, appending')
-            node.append(new Node(path, fullPath, data))
+            this.appendNode(node, path, fullPath, data)
 
             return this
         }
@@ -84,17 +87,58 @@ export default class Tree {
         return this
     }
 
+    appendNode(node, path, fullPath, data) {
+        //let countParams = this.countParams(path)
+        let offset = 0
 
+        let child = new Node()
+
+        for (let index = 0; index < path.length; index++) {
+            let character = path[index]
+
+            if (character !== ':') {
+                continue
+            }
+
+            if (character === ':') {
+                child.path = path.substr(offset, index - offset)
+
+                offset = index
+                node.append(child)
+                node = child
+
+                child = new Node()
+                child.type = Node.PARAM
+            }
+        }
+
+        child.path = path.substr(offset)
+        child.fullPath = fullPath
+        child.data = data
+
+        node.append(child)
+
+        return this
+    }
+
+    countParams(path) {
+        let matches = path.match(/:|\*/g)
+
+        return matches ? matches.length : 0
+    }
 
     find(path) {
+        if (this.isEmpty()) {
+            return undefined
+        }
+
         let node = this.root
-        let offset = 0
+        let offset = node.path.length
+
         let pathLength = path.length
 
         node_loop:
         while (node) {
-            offset += node.path.length
-
             if (pathLength === offset) {
                 return node
             }
@@ -106,9 +150,20 @@ export default class Tree {
             for (let index = 0; index < node.children.length; index++) {
                 let child = node.children[index]
 
-                if (path[offset] === child.path[0]) {
+                if (child.type === Node.DEFAULT) {
+                    if ( path[offset] === child.path[0] ) {
+                        node = child
+                        offset += node.path.length
+
+                        continue node_loop
+                    }
+                } else if (child.type === Node.PARAM) {
+                    let paramEnd = path.indexOf('/', offset)
+
+                    offset = paramEnd !== -1 ? paramEnd : pathLength
                     node = child
-                    break
+
+                    continue node_loop
                 }
             }
         }
