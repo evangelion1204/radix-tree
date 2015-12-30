@@ -34,20 +34,6 @@ export default class Tree {
                     if ( node.children[nodeIndex].path[0] === path[0] ) {
                         let selectedNode = node.children[nodeIndex]
 
-                        //if ( selectedNode.path.startsWith(path) ) {
-                        //    let newGrandChild = selectedNode
-                        //    let newChild = new Node(path, fullPath, data)
-                        //
-                        //    newGrandChild.path = newGrandChild.path.replace(path, '')
-                        //
-                        //    node.remove(newGrandChild)
-                        //    node.append(newChild)
-                        //    newChild.priority = newGrandChild.priority + 1
-                        //    newChild.append(newGrandChild)
-                        //
-                        //    return this
-                        //}
-
                         let pathCompareIndex
                         for (pathCompareIndex = 0; Math.min(selectedNode.path.length, path.length); pathCompareIndex++) {
                             if (path[pathCompareIndex] !== selectedNode.path[pathCompareIndex]) {
@@ -65,6 +51,7 @@ export default class Tree {
 
                             node.remove(selectedNode)
                             node.append(newChild)
+
                             newChild.priority = selectedNode.priority + 1
                             newChild.append(selectedNode)
 
@@ -97,6 +84,8 @@ export default class Tree {
         return this
     }
 
+
+
     find(path) {
         let node = this.root
         let offset = 0
@@ -107,7 +96,11 @@ export default class Tree {
             offset += node.path.length
 
             if (pathLength === offset) {
-                return node
+                return nodeA
+            }
+
+            if (!node.children.length) {
+                break
             }
 
             for (let index = 0; index < node.children.length; index++) {
