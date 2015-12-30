@@ -96,7 +96,7 @@ export default class Tree {
             offset += node.path.length
 
             if (pathLength === offset) {
-                return nodeA
+                return node
             }
 
             if (!node.children.length) {
