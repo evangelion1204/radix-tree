@@ -134,13 +134,26 @@ export default class Tree {
 
         let node = this.root
         let offset = node.path.length
+        let params = null
 
         let pathLength = path.length
 
         node_loop:
         while (node) {
             if (pathLength === offset) {
-                return node
+                let result = {
+                    path: node.fullPath
+                }
+
+                if (node.data) {
+                    result.data = node.data
+                }
+
+                if (params) {
+                    result.params = params
+                }
+
+                return result
             }
 
             if (!node.children.length) {
@@ -160,7 +173,15 @@ export default class Tree {
                 } else if (child.type === Node.PARAM) {
                     let paramEnd = path.indexOf('/', offset)
 
-                    offset = paramEnd !== -1 ? paramEnd : pathLength
+                    paramEnd = paramEnd !== -1 ? paramEnd : pathLength
+
+                    if (!params) {
+                        params = {}
+                    }
+
+                    params[child.path.substr(1)] = path.substr(offset, paramEnd - offset)
+
+                    offset = paramEnd
                     node = child
 
                     continue node_loop

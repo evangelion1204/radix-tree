@@ -76,13 +76,9 @@ describe('Tree', function() {
         instance.add('/account/users')
         instance.add('/account/users/add')
 
-        expect(instance.find('/account').fullPath).to.be.equal('/account')
-        expect(instance.find('/account/users').fullPath).to.be.equal('/account/users')
-        expect(instance.find('/account/users/add').fullPath).to.be.equal('/account/users/add')
-
-        expect(instance.find('/account').priority).to.be.equal(3)
-        expect(instance.find('/account/users').priority).to.be.equal(2)
-        expect(instance.find('/account/users/add').priority).to.be.equal(1)
+        expect(instance.find('/account').path).to.be.equal('/account')
+        expect(instance.find('/account/users').path).to.be.equal('/account/users')
+        expect(instance.find('/account/users/add').path).to.be.equal('/account/users/add')
     })
 
     it('should return the node on exact match of the path, even if added in inverse order', function () {
@@ -92,13 +88,9 @@ describe('Tree', function() {
         instance.add('/account/users')
         instance.add('/account')
 
-        expect(instance.find('/account').fullPath).to.be.equal('/account')
-        expect(instance.find('/account/users').fullPath).to.be.equal('/account/users')
-        expect(instance.find('/account/users/add').fullPath).to.be.equal('/account/users/add')
-
-        expect(instance.find('/account').priority).to.be.equal(3)
-        expect(instance.find('/account/users').priority).to.be.equal(2)
-        expect(instance.find('/account/users/add').priority).to.be.equal(1)
+        expect(instance.find('/account').path).to.be.equal('/account')
+        expect(instance.find('/account/users').path).to.be.equal('/account/users')
+        expect(instance.find('/account/users/add').path).to.be.equal('/account/users/add')
     })
 
     it('should return the node on exact match of the path, even if added in inverse order', function () {
@@ -109,10 +101,10 @@ describe('Tree', function() {
         instance.add('/users/:userId/messages')
         instance.add('/users/:userId/messages/:messageId')
 
-        expect(instance.find('/users').fullPath).to.be.equal('/users')
-        expect(instance.find('/users/testuser').fullPath).to.be.equal('/users/:userId')
-        expect(instance.find('/users/testuser/messages').fullPath).to.be.equal('/users/:userId/messages')
-        expect(instance.find('/users/testuser/messages/123').fullPath).to.be.equal('/users/:userId/messages/:messageId')
+        expect(instance.find('/users')).to.deep.equal({path: '/users'})
+        expect(instance.find('/users/testuser')).to.deep.equal({path: '/users/:userId', params: {userId: 'testuser'}})
+        expect(instance.find('/users/testuser/messages')).to.deep.equal({path: '/users/:userId/messages', params: {userId: 'testuser'}})
+        expect(instance.find('/users/testuser/messages/123')).to.deep.equal({path: '/users/:userId/messages/:messageId', params: {userId: 'testuser', messageId: '123'}})
     })
 
 })

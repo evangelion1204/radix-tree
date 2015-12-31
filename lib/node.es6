@@ -6,16 +6,14 @@ export default class Node {
     constructor(path, fullPath, data) {
         this.path = path
         this.fullPath = fullPath
-        this.children = []
-        //this.indices = ''
         this.data = data
         this.priority = 1
         this.type = Node.DEFAULT
+        this.children = []
     }
 
     append(node) {
         this.children.push(node)
-        //this.indices += node.path[0]
     }
 
     remove(node) {
@@ -26,8 +24,6 @@ export default class Node {
         }
 
         this.children.splice(position, 1)
-        //this.indices = this.indices.slice(position, 1)
-        //console.log(this)
     }
 }
 
