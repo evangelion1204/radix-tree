@@ -93,7 +93,7 @@ describe('Tree', function() {
         expect(instance.find('/account/users/add').path).to.be.equal('/account/users/add')
     })
 
-    it('should return the node on exact match of the path, even if added in inverse order', function () {
+    it('should return the parameters in paths', function () {
         let instance = new Tree()
 
         instance.add('/users')
@@ -105,6 +105,16 @@ describe('Tree', function() {
         expect(instance.find('/users/testuser')).to.deep.equal({path: '/users/:userId', params: {userId: 'testuser'}})
         expect(instance.find('/users/testuser/messages')).to.deep.equal({path: '/users/:userId/messages', params: {userId: 'testuser'}})
         expect(instance.find('/users/testuser/messages/123')).to.deep.equal({path: '/users/:userId/messages/:messageId', params: {userId: 'testuser', messageId: '123'}})
+    })
+
+    it('should return the catchall param', function () {
+        let instance = new Tree()
+
+        instance.add('/users')
+        instance.add('/users/*api')
+
+        expect(instance.find('/users')).to.deep.equal({path: '/users'})
+        expect(instance.find('/users/some/path')).to.deep.equal({path: '/users/*api', params: {api: 'some/path'}})
     })
 
 })

@@ -29,3 +29,4 @@ export default class Node {
 
 Node.DEFAULT = 0
 Node.PARAM = 1
+Node.CATCHALL = 2

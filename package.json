@@ -1,7 +1,7 @@
 {
   "name": "radix-tree",
   "version": "0.1.0",
-  "description": "Node.js version of a radix tree usable for routers or any other kind of string/hash based lookup",
+  "description": "Node.js version of a radix tree usable for routers or url path based storage.",
   "main": "index.js",
   "scripts": {
     "pretest": "babel . --extensions .es6 --out-dir .",
@@ -23,7 +23,7 @@
     "sinon": "^1.17.2",
     "sinon-chai": "^2.8.0"
   },
-  "author": "",
+  "author": "Michael Iwersen <mi.iwersen@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/evangelion1204/radix-tree/issues"

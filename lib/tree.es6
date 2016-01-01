@@ -15,9 +15,6 @@ export default class Tree {
 
         const fullPath = path
         let node = this.root
-        let paramCount = this.countParams(path)
-
-        console.log('Param Count', paramCount)
 
         node_loop:
         while (node) {
@@ -88,7 +85,6 @@ export default class Tree {
     }
 
     appendNode(node, path, fullPath, data) {
-        //let countParams = this.countParams(path)
         let offset = 0
 
         let child = new Node()
@@ -96,7 +92,7 @@ export default class Tree {
         for (let index = 0; index < path.length; index++) {
             let character = path[index]
 
-            if (character !== ':') {
+            if (character !== ':' && character !== '*') {
                 continue
             }
 
@@ -109,6 +105,15 @@ export default class Tree {
 
                 child = new Node()
                 child.type = Node.PARAM
+            } else if (character === '*') {
+                child.path = path.substr(offset, index - offset)
+
+                offset = index
+                node.append(child)
+                node = child
+
+                child = new Node()
+                child.type = Node.CATCHALL
             }
         }
 
@@ -182,6 +187,17 @@ export default class Tree {
                     params[child.path.substr(1)] = path.substr(offset, paramEnd - offset)
 
                     offset = paramEnd
+                    node = child
+
+                    continue node_loop
+                } else if (child.type === Node.CATCHALL) {
+                    if (!params) {
+                        params = {}
+                    }
+
+                    params[child.path.substr(1)] = path.substr(offset)
+
+                    offset = path.length
                     node = child
 
                     continue node_loop
