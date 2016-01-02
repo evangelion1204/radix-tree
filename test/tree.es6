@@ -117,4 +117,12 @@ describe('Tree', function() {
         expect(instance.find('/users/some/path')).to.deep.equal({path: '/users/*api', params: {api: 'some/path'}})
     })
 
+    it('an error should be thrown if the same route is added twice', function () {
+        let instance = new Tree()
+
+        expect(function () {
+            instance.add('/users', function () {})
+            instance.add('/users', function () {})
+        }).to.throw('Node already defined')
+    })
 })

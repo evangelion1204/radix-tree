@@ -22,6 +22,10 @@ export default class Tree {
 
             if (path.length === 0) {
                 console.log('exact match, replacing')
+                if (node.data) {
+                    throw new Error('Node already defined')
+                }
+
                 node.data = data
 
                 return this
@@ -35,7 +39,7 @@ export default class Tree {
                         let selectedNode = node.children[nodeIndex]
 
                         let pathCompareIndex
-                        for (pathCompareIndex = 0; Math.min(selectedNode.path.length, path.length); pathCompareIndex++) {
+                        for (pathCompareIndex = 0; pathCompareIndex < Math.min(selectedNode.path.length, path.length); pathCompareIndex++) {
                             if (path[pathCompareIndex] !== selectedNode.path[pathCompareIndex]) {
                                 break
                             }
