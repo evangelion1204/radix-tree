@@ -7,7 +7,7 @@
     "pretest": "babel . --extensions .es6 --out-dir .",
     "prebench": "babel . --extensions .es6 --out-dir .",
     "test": "mocha --harmony test --recursive",
-    "bench": "node --harmony benchmark.js"
+    "bench": "node --harmony benchmark/joined.js"
   },
   "repository": {
     "type": "git",

@@ -117,6 +117,16 @@ describe('Tree', function() {
         expect(instance.find('/users/some/path')).to.deep.equal({path: '/users/*api', params: {api: 'some/path'}})
     })
 
+    it('should be possible to mix both types', function () {
+        let instance = new Tree()
+
+        instance.add('/users/:id')
+        instance.add('/api/*api_path')
+
+        expect(instance.find('/users/testuser')).to.deep.equal({path: '/users', params: {userId: 'testuser'}})
+        expect(instance.find('/api/some/path')).to.deep.equal({path: '/api/*api', params: {api: 'some/path'}})
+    })
+
     it('an error should be thrown if the same static route is added twice', function () {
         let instance = new Tree()
 
@@ -150,6 +160,15 @@ describe('Tree', function() {
         expect(function () {
             instance.add('/users/myname', function () {})
             instance.add('/users/*id', function () {})
+        }).to.throw('Param node can not be appended to an already existing path')
+    })
+
+    it('an error should be thrown if the a param route is already defined and a catch all param with the same path matching is introduced', function () {
+        let instance = new Tree()
+
+        expect(function () {
+            instance.add('/users/:param', function () {})
+            instance.add('/users/*catch', function () {})
         }).to.throw('Param node can not be appended to an already existing path')
     })
 })
