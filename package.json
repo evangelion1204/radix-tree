@@ -5,8 +5,10 @@
   "main": "index.js",
   "scripts": {
     "pretest": "babel . --extensions .es6 --out-dir .",
+    "precoverage": "babel . --extensions .es6 --out-dir .",
     "prebench": "babel . --extensions .es6 --out-dir .",
     "test": "mocha --harmony test --recursive",
+    "coverage": "babel-node ./node_modules/.bin/isparta cover ./node_modules/.bin/_mocha",
     "bench": "node --harmony benchmark/joined.js"
   },
   "repository": {
@@ -14,14 +16,8 @@
     "url": "git+https://github.com/evangelion1204/radix-tree.git"
   },
   "dependencies": {
-    "babel-cli": "^6.2.0",
-    "babel-plugin-transform-es2015-modules-commonjs": "^6.2.0",
-    "babel-plugin-transform-es2015-parameters": "^6.1.18",
     "chai": "^3.4.1",
-    "lodash": "^3.10.1",
-    "mocha": "^2.3.4",
-    "sinon": "^1.17.2",
-    "sinon-chai": "^2.8.0"
+    "lodash": "^3.10.1"
   },
   "author": "Michael Iwersen <mi.iwersen@gmail.com>",
   "license": "MIT",
@@ -30,6 +26,13 @@
   },
   "homepage": "https://github.com/evangelion1204/radix-tree#readme",
   "devDependencies": {
-    "benchmark": "^1.0.0"
+    "benchmark": "^1.0.0",
+    "babel-cli": "^6.2.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.2.0",
+    "babel-plugin-transform-es2015-parameters": "^6.1.18",
+    "mocha": "^2.3.4",
+    "sinon": "^1.17.2",
+    "sinon-chai": "^2.8.0",
+    "isparta": "^4.0.0"
   }
 }
