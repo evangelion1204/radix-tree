@@ -62,7 +62,6 @@ export default class Tree {
                         } else if (pathCompareIndex > 0) {
                             let newEdge = new Node(path.substr(0, pathCompareIndex), '', null)
 
-                            path = path.substr(pathCompareIndex)
                             selectedNode.path = selectedNode.path.substr(pathCompareIndex)
 
                             node.remove(selectedNode)
@@ -72,6 +71,8 @@ export default class Tree {
                             newEdge.append(selectedNode)
 
                             node = newEdge
+
+                            continue node_loop
                         }
                     }
                 }
@@ -100,7 +101,7 @@ export default class Tree {
             }
 
             if (character === ':') {
-                if (node.children.length !== 0) {
+                if (node.children.length !== 0 && index === 0) {
                     throw new Error('Param node can not be appended to an already existing path')
                 }
 
@@ -113,7 +114,7 @@ export default class Tree {
                 child = new Node()
                 child.type = Node.PARAM
             } else if (character === '*') {
-                if (node.children.length !== 0) {
+                if (node.children.length !== 0 && index === 0) {
                     throw new Error('Param node can not be appended to an already existing path')
                 }
 

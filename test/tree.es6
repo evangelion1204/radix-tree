@@ -120,11 +120,11 @@ describe('Tree', function() {
     it('should be possible to mix both types', function () {
         let instance = new Tree()
 
-        instance.add('/users/:id')
+        instance.add('/users/:userId')
         instance.add('/api/*api_path')
 
-        expect(instance.find('/users/testuser')).to.deep.equal({path: '/users', params: {userId: 'testuser'}})
-        expect(instance.find('/api/some/path')).to.deep.equal({path: '/api/*api', params: {api: 'some/path'}})
+        expect(instance.find('/users/testuser')).to.deep.equal({path: '/users/:userId', params: {userId: 'testuser'}})
+        expect(instance.find('/api/some/path')).to.deep.equal({path: '/api/*api_path', params: {api_path: 'some/path'}})
     })
 
     it('an error should be thrown if the same static route is added twice', function () {
