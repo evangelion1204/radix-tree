@@ -8,7 +8,7 @@ export default class Tree {
     }
 
     add(path, data) {
-        console.log(`Adding ${path}`)
+        this.log(`Adding ${path}`)
         if (this.isEmpty()) {
             this.root = new Node('', '', null)
         }
@@ -21,7 +21,6 @@ export default class Tree {
             path = path.substr(node.path.length)
 
             if (path.length === 0) {
-                console.log('exact match, replacing')
                 if (node.data) {
                     throw new Error('Node already defined')
                 }
@@ -78,7 +77,7 @@ export default class Tree {
                 }
             }
 
-            console.log('No matching child found, appending')
+            this.log('No matching child found, appending')
             this.appendNode(node, path, fullPath, data)
 
             return this
@@ -101,6 +100,10 @@ export default class Tree {
             }
 
             if (character === ':') {
+                if (node.children.length !== 0) {
+                    throw new Error('Param node can not be appended to an already existing path')
+                }
+
                 child.path = path.substr(offset, index - offset)
 
                 offset = index
@@ -110,6 +113,10 @@ export default class Tree {
                 child = new Node()
                 child.type = Node.PARAM
             } else if (character === '*') {
+                if (node.children.length !== 0) {
+                    throw new Error('Param node can not be appended to an already existing path')
+                }
+
                 child.path = path.substr(offset, index - offset)
 
                 offset = index
@@ -214,5 +221,11 @@ export default class Tree {
 
     isEmpty() {
         return this.root === null
+    }
+
+    log() {
+        if (process.env.NODE_ENV == 'development') {
+            console.log.apply(this, arguments)
+        }
     }
 }
