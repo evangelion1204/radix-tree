@@ -17,21 +17,21 @@
     "type": "git",
     "url": "git+https://github.com/evangelion1204/radix-tree.git"
   },
-  "dependencies": {
-    "chai": "^3.4.1",
-    "lodash": "^3.10.1"
-  },
   "author": "Michael Iwersen <mi.iwersen@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/evangelion1204/radix-tree/issues"
   },
   "homepage": "https://github.com/evangelion1204/radix-tree#readme",
+  "dependencies": {
+    "lodash": "^3.10.1"
+  },
   "devDependencies": {
-    "babel-cli": "^6.2.0",
-    "babel-plugin-transform-es2015-modules-commonjs": "^6.2.0",
-    "babel-plugin-transform-es2015-parameters": "^6.1.18",
-    "benchmark": "^1.0.0",
+    "babel-cli": "^6.3.17",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.3.16",
+    "babel-plugin-transform-es2015-parameters": "^6.3.26",
+    "benchmark": "^2.0.0",
+    "chai": "^3.4.1",
     "coveralls": "^2.11.6",
     "isparta": "^4.0.0",
     "mocha": "^2.3.4",
