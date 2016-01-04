@@ -1,4 +1,4 @@
 'use strict'
 
-exports.Tree = require('./lib/tree').default
-exports.Node = require('./lib/node')
+exports.Tree = require('./lib/tree').Tree
+exports.Node = require('./lib/node').Node
