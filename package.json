@@ -4,14 +4,10 @@
   "description": "Node.js version of a radix tree usable for routers or url path based storage.",
   "main": "index.js",
   "scripts": {
-    "pretest": "babel . --extensions .es6 --out-dir .",
-    "precoverage": "babel . --extensions .es6 --out-dir .",
-    "precoveralls": "babel . --extensions .es6 --out-dir .",
-    "prebench": "babel . --extensions .es6 --out-dir .",
-    "test": "mocha --harmony test --recursive",
+    "test": "babel-node ./node_modules/.bin/_mocha",
     "coverage": "babel-node ./node_modules/.bin/isparta cover ./node_modules/.bin/_mocha",
     "coveralls": "babel-node ./node_modules/.bin/isparta cover ./node_modules/.bin/_mocha && cat ./coverage/lcov.info | coveralls",
-    "bench": "node --harmony benchmark/joined.js"
+    "bench": "babel-node --harmony benchmark/joined.js"
   },
   "repository": {
     "type": "git",

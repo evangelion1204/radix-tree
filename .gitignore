@@ -27,5 +27,5 @@ build/Release
 node_modules
 .idea
 
-**/*.js
+lib/**/*.js
 !index.js

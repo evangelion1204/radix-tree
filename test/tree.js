@@ -7,7 +7,7 @@ const expect = chai.expect
 
 chai.use(sinonChai)
 
-import Tree from '../lib/tree'
+import Tree from '../src/tree'
 
 describe('Tree', function() {
     it('should be a class', function () {

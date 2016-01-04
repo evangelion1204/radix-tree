@@ -1,7 +1,4 @@
 'use strict'
 
-import Tree from 'lib/tree'
-import Node from 'lib/node'
-
-exports.Tree = Tree
-exports.Node = Node
+exports.Tree = require('lib/tree').default
+exports.Node = require('lib/node')

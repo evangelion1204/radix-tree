@@ -1,7 +1,7 @@
 'use strict'
 
 const Benchmark = require('benchmark')
-import Tree from './../lib/tree'
+import Tree from '../src/tree'
 
 let singleStaticRoutes = [
     {
