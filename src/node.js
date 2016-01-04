@@ -1,8 +1,6 @@
 'use strict'
 
-const _ = require('lodash')
-
-export default class Node {
+export class Node {
     constructor(path, fullPath, data) {
         this.path = path
         this.fullPath = fullPath

@@ -7,7 +7,7 @@ const expect = chai.expect
 
 chai.use(sinonChai)
 
-import Node from '../src/node'
+import {Node} from '../src/node'
 
 describe('Node', function() {
     it('should be a class', function () {

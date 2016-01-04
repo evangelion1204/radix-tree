@@ -1,9 +1,13 @@
 {
   "name": "radix-tree",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Node.js version of a radix tree usable for routers or url path based storage.",
   "main": "index.js",
+  "engines" : {
+    "node" : ">=4.0.0"
+  },
   "scripts": {
+    "prepublish": "babel src --out-dir lib",
     "test": "babel-node ./node_modules/.bin/_mocha",
     "coverage": "babel-node ./node_modules/.bin/isparta cover ./node_modules/.bin/_mocha",
     "coveralls": "babel-node ./node_modules/.bin/isparta cover ./node_modules/.bin/_mocha && cat ./coverage/lcov.info | coveralls",

@@ -1,8 +1,8 @@
 'use strict'
 
-import Node from './node'
+import {Node} from './node'
 
-export default class Tree {
+export class Tree {
     constructor() {
         this.root = null
     }
