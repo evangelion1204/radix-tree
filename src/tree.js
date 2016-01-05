@@ -215,6 +215,8 @@ export class Tree {
                     continue node_loop
                 }
             }
+
+            break
         }
 
         return undefined

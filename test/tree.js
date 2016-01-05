@@ -127,6 +127,17 @@ describe('Tree', function() {
         expect(instance.find('/api/some/path')).to.deep.equal({path: '/api/*api_path', params: {api_path: 'some/path'}})
     })
 
+    it('non existing paths should return undefined', function () {
+        let instance = new Tree()
+
+        instance.add('/users')
+        instance.add('/mails')
+
+        expect(instance.find('/users')).to.deep.equal({path: '/users'})
+        expect(instance.find('/mails')).to.deep.equal({path: '/mails'})
+        expect(instance.find('/another/path')).to.not.be.ok
+    })
+
     it('an error should be thrown if the same static route is added twice', function () {
         let instance = new Tree()
 
