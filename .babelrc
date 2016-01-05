@@ -2,5 +2,12 @@
   "ignore": [
     "node_modules/*"
   ],
-  "plugins": ["transform-es2015-modules-commonjs", "transform-es2015-parameters"]
+  "plugins": [
+    "transform-es2015-modules-commonjs",
+    "transform-es2015-parameters",
+    "babel-plugin-transform-es2015-block-scoping",
+    "babel-plugin-check-es2015-constants",
+    "babel-plugin-transform-es2015-classes",
+    "babel-plugin-transform-es2015-template-literals"
+  ]
 }
