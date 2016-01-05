@@ -10,7 +10,7 @@
     "predistribute": "babel src --out-dir lib",
     "test": "babel-node ./node_modules/.bin/_mocha",
     "coverage": "babel-node ./node_modules/.bin/isparta cover ./node_modules/.bin/_mocha",
-    "bench": "babel-node --harmony benchmark/joined.js"
+    "bench": "babel-node --harmony benchmark/joined.js",
     "distribute": "npm publish"
   },
   "repository": {
