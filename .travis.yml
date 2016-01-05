@@ -1,9 +1,11 @@
 language: node_js
 node_js:
-  - "5.3"
-  - "5.2"
-  - "5.1"
-  - "5.0"
+  - "0.12"
+  - "1"
+  - "2"
+  - "3"
+  - "4"
+  - "5"
 install: npm install --dev
 script: npm test
 after_script: npm run coveralls
