@@ -10,7 +10,6 @@
     "prepublish": "babel src --out-dir lib",
     "test": "babel-node ./node_modules/.bin/_mocha",
     "coverage": "babel-node ./node_modules/.bin/isparta cover ./node_modules/.bin/_mocha",
-    "coveralls": "babel-node ./node_modules/.bin/isparta cover ./node_modules/.bin/_mocha && cat ./coverage/lcov.info | coveralls",
     "bench": "babel-node --harmony benchmark/joined.js"
   },
   "repository": {
@@ -33,7 +32,6 @@
     "babel-plugin-transform-es2015-template-literals": "^6.3.13",
     "benchmark": "^2.0.0",
     "chai": "^3.4.1",
-    "coveralls": "^2.11.6",
     "isparta": "^4.0.0",
     "mocha": "^2.3.4",
     "sinon": "^1.17.2",
