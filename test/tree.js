@@ -44,22 +44,6 @@ describe('Tree', function() {
         instance.add('/account/users/add')
         instance.add('/account/users/change')
         instance.add('/account/users/delete')
-        instance.add('/account/addresses')
-        instance.add('/account/addresses/add')
-        instance.add('/account/addresses/change')
-        instance.add('/account/addresses/delete')
-
-        expect(instance.root.priority).to.be.equal(10)
-    })
-
-    it('should be possible to add new plain entries', function () {
-        let instance = new Tree()
-
-        instance.add('/account')
-        instance.add('/account/users')
-        instance.add('/account/users/add')
-        instance.add('/account/users/change')
-        instance.add('/account/users/delete')
         instance.add('/catalog')
         instance.add('/catalog/articles')
         instance.add('/catalog/articles/add')
@@ -68,6 +52,42 @@ describe('Tree', function() {
 
         expect(instance.root.priority).to.be.equal(11)
     })
+
+    it('the order should be based on the priority', function () {
+        let instance = new Tree()
+
+        instance.add('/path2')
+        instance.add('/path1')
+        instance.add('/path1/subpath')
+
+        expect(instance.root.priority).to.be.equal(4)
+        expect(instance.root.children[0].children[0].fullPath).to.be.equal('/path1')
+        expect(instance.root.children[0].children[1].fullPath).to.be.equal('/path2')
+    })
+
+    it('the order should be based on the priority, even when splitting and adding an edge', function () {
+        let instance = new Tree()
+
+        instance.add('/path2')
+        instance.add('/path1/subpath')
+        instance.add('/path1')
+
+        expect(instance.root.priority).to.be.equal(4)
+        expect(instance.root.children[0].children[0].fullPath).to.be.equal('/path1')
+        expect(instance.root.children[0].children[1].fullPath).to.be.equal('/path2')
+    })
+
+    it('the order should be based on the priority, even when adding a longer path', function () {
+        let instance = new Tree()
+
+        instance.add('/path2')
+        instance.add('/path1/subpath')
+
+        expect(instance.root.priority).to.be.equal(3)
+        expect(instance.root.children[0].children[0].fullPath).to.be.equal('/path2')
+        expect(instance.root.children[0].children[1].fullPath).to.be.equal('/path1/subpath')
+    })
+
 
     it('should return the node on exact match of the path', function () {
         let instance = new Tree()

@@ -33,20 +33,40 @@ describe('Node', function() {
         expect(parent.children.length).to.be.equal(1)
     })
 
-    it.skip('updatePriority should increase priority for every child', function () {
+    it('appending should order children based by their priority', function () {
         let parent = new Node('/parent', '/parent')
-        let child = new Node('/child', '/parent/child')
-        let grandChild = new Node('/grandchild', '/parent/child/grandchild')
+        let child1 = new Node('/child1', '/parent/child1')
+        let child2 = new Node('/child2', '/parent/child2')
 
-        expect(parent.priority).to.be.equal(1)
-        parent.append(child)
-        parent.updatePriority()
-        expect(parent.priority).to.be.equal(1)
-        child.append(grandChild)
-        child.updatePriority()
-        parent.updatePriority()
-        expect(child.priority).to.be.equal(1)
-        expect(parent.priority).to.be.equal(2)
+        child1.priority = 1
+        child2.priority = 2
+
+        parent.append(child1)
+        parent.append(child2)
+
+        expect(parent.children).to.deep.equal([child2, child1])
     })
+
+    it('sort should order children based by their priority', function () {
+        let parent = new Node('/parent', '/parent')
+        let child1 = new Node('/child1', '/parent/child1')
+        let child2 = new Node('/child2', '/parent/child2')
+
+        child1.priority = 1
+        child2.priority = 1
+
+        parent.append(child1)
+        parent.append(child2)
+
+        expect(parent.children).to.deep.equal([child1, child2])
+
+        child2.priority = 2
+
+        parent.sort()
+
+        expect(parent.children).to.deep.equal([child2, child1])
+    })
+
+
 
 })
