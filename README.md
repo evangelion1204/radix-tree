@@ -22,6 +22,20 @@ console.log(instance.find('/my_path').data) // will output "data"
 
 The second parameter in `Tree.add()` can be anything, a string, a function or an object. The stored path, data and contained parameters will be returned via `Tree.find()`.
 
+### Priority
+
+With version 0.2.0 routes are internally sorted by priority and no longer handled FIFO, routes with many childs have a higher priority and are scanned earlier.
+
+Adding first `/users` and then `/cart/add` and `/cart/remove` will result in reordering of the children and place cart before users.Expl
+
+```
+(3) /
+(2)   cart/
+(1)     add
+(1)     remove
+(1)   users
+```
+
 ### Static routes
 
 A static route can be any type of endpoint of a service, valid examples are:
