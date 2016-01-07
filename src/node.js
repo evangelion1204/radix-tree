@@ -12,6 +12,7 @@ export class Node {
 
     append(node) {
         this.children.push(node)
+        this.sort()
     }
 
     remove(node) {
@@ -22,6 +23,10 @@ export class Node {
         }
 
         this.children.splice(position, 1)
+    }
+
+    sort() {
+        this.children.sort((a, b) => b.priority - a.priority)
     }
 }
 

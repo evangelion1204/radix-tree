@@ -16,6 +16,8 @@ export class Tree {
         const fullPath = path
         let node = this.root
 
+        node.priority++
+
         node_loop:
         while (node) {
             path = path.substr(node.path.length)
@@ -30,8 +32,6 @@ export class Tree {
                 return this
             }
 
-            node.priority++
-
             if (node.children.length) {
                 for (let nodeIndex = 0; nodeIndex < node.children.length; nodeIndex++) {
                     if ( node.children[nodeIndex].path[0] === path[0] ) {
@@ -44,30 +44,38 @@ export class Tree {
                             }
                         }
 
+                        // go further down the tree
                         if (pathCompareIndex >= selectedNode.path.length) {
+                            node.children[nodeIndex].priority++
+                            node.sort()
+
                             node = selectedNode
                             continue node_loop
+                        // we inject a new node, cause the new path is part of this one
                         } else if (pathCompareIndex >= path.length) {
                             let newChild = new Node(path, fullPath, data)
 
                             selectedNode.path = selectedNode.path.replace(path, '')
 
                             node.remove(selectedNode)
-                            node.append(newChild)
 
                             newChild.priority = selectedNode.priority + 1
                             newChild.append(selectedNode)
 
+                            node.append(newChild)
+
                             return this
+                        // we match partly, generate a new edge
                         } else if (pathCompareIndex > 0) {
                             let newEdge = new Node(path.substr(0, pathCompareIndex), '', null)
 
                             selectedNode.path = selectedNode.path.substr(pathCompareIndex)
 
+                            newEdge.priority = selectedNode.priority + 1
+
                             node.remove(selectedNode)
                             node.append(newEdge)
 
-                            newEdge.priority = selectedNode.priority + 1
                             newEdge.append(selectedNode)
 
                             node = newEdge
@@ -83,7 +91,6 @@ export class Tree {
 
             return this
         }
-
 
         return this
     }

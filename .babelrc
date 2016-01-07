@@ -8,6 +8,7 @@
     "babel-plugin-transform-es2015-block-scoping",
     "babel-plugin-check-es2015-constants",
     "babel-plugin-transform-es2015-classes",
-    "babel-plugin-transform-es2015-template-literals"
+    "babel-plugin-transform-es2015-template-literals",
+    "babel-plugin-transform-es2015-arrow-functions"
   ]
 }
