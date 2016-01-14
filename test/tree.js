@@ -202,4 +202,30 @@ describe('Tree', function() {
             instance.add('/users/*catch', function () {})
         }).to.throw('Param node can not be appended to an already existing path')
     })
+
+    it('removing leaf in tree', function () {
+        let instance = new Tree()
+
+        instance.add('/users')
+        instance.add('/users/new')
+
+        instance.remove('/users/new')
+
+        expect(instance.find('/users/new')).to.not.be.ok
+        expect(instance.find('/users')).to.be.ok
+    })
+
+    it('removing node in tree', function () {
+        let instance = new Tree()
+
+        instance.add('/api/users')
+        instance.add('/api/users/new')
+        instance.add('/api/users/delete')
+
+        instance.remove('/api/users')
+
+        expect(instance.find('/api/users')).to.not.be.ok
+        expect(instance.find('/api/users/new')).to.be.ok
+        expect(instance.find('/api/users/delete')).to.be.ok
+    })
 })
