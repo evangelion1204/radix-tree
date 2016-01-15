@@ -202,4 +202,128 @@ describe('Tree', function() {
             instance.add('/users/*catch', function () {})
         }).to.throw('Param node can not be appended to an already existing path')
     })
+
+    it('removing leaf in tree', function () {
+        let instance = new Tree()
+
+        instance.add('/users')
+        instance.add('/users/new')
+
+        instance.remove('/users/new')
+
+        expect(instance.find('/users/new')).to.not.be.ok
+        expect(instance.find('/users')).to.be.ok
+    })
+
+    it('removing node in tree', function () {
+        let instance = new Tree()
+
+        instance.add('/api/users')
+        instance.add('/api/users/new')
+        instance.add('/api/users/delete')
+
+        instance.remove('/api/users')
+
+        expect(instance.find('/api/users')).to.not.be.ok
+        expect(instance.find('/api/users/new')).to.be.ok
+        expect(instance.find('/api/users/delete')).to.be.ok
+    })
+
+    it('removing node in tree should fail, if path does not exist', function () {
+        let instance = new Tree()
+
+        instance.add('/api/users')
+        instance.add('/api/users/new')
+        instance.add('/api/users/delete')
+
+        instance.remove('/api/users/edit')
+
+        expect(instance.find('/api/users')).to.be.ok
+        expect(instance.find('/api/users/new')).to.be.ok
+        expect(instance.find('/api/users/delete')).to.be.ok
+    })
+
+    it('removing catchall in tree', function () {
+        let instance = new Tree()
+
+        instance.add('/api/users')
+        instance.add('/api/users/*api')
+        instance.add('/api/addresses')
+
+        instance.remove('/api/users/*api')
+
+        expect(instance.find('/api/users/test123')).to.not.be.ok
+        expect(instance.find('/api/users')).to.be.ok
+        expect(instance.find('/api/addresses')).to.be.ok
+    })
+
+    it('removing catchall in tree should fail if name does not match', function () {
+        let instance = new Tree()
+
+        instance.add('/api/users')
+        instance.add('/api/users/*api')
+        instance.add('/api/addresses')
+
+        instance.remove('/api/users/*apy')
+
+        expect(instance.find('/api/users/test123')).to.be.ok
+        expect(instance.find('/api/users')).to.be.ok
+        expect(instance.find('/api/addresses')).to.be.ok
+    })
+
+    it('removing catchall in tree should fail if type does not match', function () {
+        let instance = new Tree()
+
+        instance.add('/api/users')
+        instance.add('/api/users/*api')
+        instance.add('/api/addresses')
+
+        instance.remove('/api/users/:api')
+
+        expect(instance.find('/api/users/test123')).to.be.ok
+        expect(instance.find('/api/users')).to.be.ok
+        expect(instance.find('/api/addresses')).to.be.ok
+    })
+
+    it('removing parameter in tree', function () {
+        let instance = new Tree()
+
+        instance.add('/api/users')
+        instance.add('/api/users/:userId')
+        instance.add('/api/addresses')
+
+        instance.remove('/api/users/:userId')
+
+        expect(instance.find('/api/users/test123')).to.not.be.ok
+        expect(instance.find('/api/users')).to.be.ok
+        expect(instance.find('/api/addresses')).to.be.ok
+    })
+
+    it('removing parameter in tree should fail if name does not match', function () {
+        let instance = new Tree()
+
+        instance.add('/api/users')
+        instance.add('/api/users/:userId')
+        instance.add('/api/addresses')
+
+        instance.remove('/api/users/:userYd')
+
+        expect(instance.find('/api/users/test123')).to.be.ok
+        expect(instance.find('/api/users')).to.be.ok
+        expect(instance.find('/api/addresses')).to.be.ok
+    })
+
+    it('removing parameter in tree should fail if type does not match', function () {
+        let instance = new Tree()
+
+        instance.add('/api/users')
+        instance.add('/api/users/:userId')
+        instance.add('/api/addresses')
+
+        instance.remove('/api/users/*userId')
+
+        expect(instance.find('/api/users/test123')).to.be.ok
+        expect(instance.find('/api/users')).to.be.ok
+        expect(instance.find('/api/addresses')).to.be.ok
+    })
 })

@@ -145,6 +145,103 @@ export class Tree {
         return this
     }
 
+    remove(path) {
+        if (this.isEmpty()) {
+            return this
+        }
+
+        let node = this.root
+        let offset = node.path.length
+
+        let pathLength = path.length
+
+        let passedNodes = []
+
+        node_loop:
+        while (node) {
+            passedNodes.push(node)
+
+            if (pathLength === offset) {
+                break
+            }
+
+            if (!node.children.length) {
+                return this
+            }
+
+            for (let index = 0; index < node.children.length; index++) {
+                let child = node.children[index]
+
+                if (child.type === Node.DEFAULT) {
+                    if ( path[offset] === child.path[0] ) {
+                        node = child
+                        offset += node.path.length
+
+                        continue node_loop
+                    }
+                } else if (child.type === Node.PARAM) {
+                    // break if no parameter
+                    if ( path[offset] !== ':' ) {
+                        return this
+                    }
+
+                    let paramEnd = path.indexOf('/', offset)
+                    paramEnd = paramEnd !== -1 ? paramEnd : pathLength
+
+                    // are the names not matching, abort
+                    if (child.path !== path.substr(offset, paramEnd - offset)) {
+                        return this
+                    }
+
+                    offset = paramEnd
+                    node = child
+
+                    continue node_loop
+                } else if (child.type === Node.CATCHALL) {
+                    // break if no catchall
+                    if ( path[offset] !== '*' ) {
+                        return this
+                    }
+
+                    // are the names not matching, abort
+                    if (child.path !== path.substr(offset)) {
+                        return this
+                    }
+
+                    offset = path.length
+                    node = child
+
+                    continue node_loop
+                }
+            }
+
+            break
+        }
+
+        passedNodes.reverse()
+
+        node = passedNodes[0]
+        let parentNode = passedNodes[1]
+
+        switch (node.children.length) {
+            case 0:
+                parentNode.remove(node)
+                break;
+            case 1:
+                let childNode = node.children[0]
+                childNode.path = node.path + childNode.path
+
+                parentNode.remove(node)
+                parentNode.append(childNode)
+
+                break;
+            default:
+                break;
+        }
+
+        return this
+    }
+
     countParams(path) {
         let matches = path.match(/:|\*/g)
 

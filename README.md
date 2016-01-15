@@ -10,6 +10,8 @@ npm install radix-tree
 
 ## Usage
 
+### Adding
+
 ```js
 const Tree = require('radix-tree').Tree
 
@@ -21,6 +23,21 @@ console.log(instance.find('/my_path').data) // will output "data"
 ```
 
 The second parameter in `Tree.add()` can be anything, a string, a function or an object. The stored path, data and contained parameters will be returned via `Tree.find()`.
+
+### Removing
+
+```js
+instance.remove('/my_path')
+```
+
+Will remove `/my_path` from the tree. Removing deeper paths like
+
+```js
+instance.add('/my_path')
+instance.add('/my_path/sub_path')
+
+instance.remove('/my_path/sub_path') // will only remove /sub_path
+```
 
 ### Priority
 
