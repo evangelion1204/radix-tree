@@ -155,10 +155,12 @@ export class Tree {
 
         let pathLength = path.length
 
-        let passedNodes = [node]
+        let passedNodes = []
 
         node_loop:
         while (node) {
+            passedNodes.push(node)
+
             if (pathLength === offset) {
                 break
             }
@@ -175,38 +177,42 @@ export class Tree {
                         node = child
                         offset += node.path.length
 
-                        passedNodes.push(node)
-
                         continue node_loop
                     }
+                } else if (child.type === Node.PARAM) {
+                    // break if no parameter
+                    if ( path[offset] !== ':' ) {
+                        return this
+                    }
+
+                    let paramEnd = path.indexOf('/', offset)
+                    paramEnd = paramEnd !== -1 ? paramEnd : pathLength
+
+                    // are the names not matching, abort
+                    if (child.path !== path.substr(offset, paramEnd - offset)) {
+                        return this
+                    }
+
+                    offset = paramEnd
+                    node = child
+
+                    continue node_loop
+                } else if (child.type === Node.CATCHALL) {
+                    // break if no catchall
+                    if ( path[offset] !== '*' ) {
+                        return this
+                    }
+
+                    // are the names not matching, abort
+                    if (child.path !== path.substr(offset)) {
+                        return this
+                    }
+
+                    offset = path.length
+                    node = child
+
+                    continue node_loop
                 }
-                //} else if (child.type === Node.PARAM) {
-                //    let paramEnd = path.indexOf('/', offset)
-                //
-                //    paramEnd = paramEnd !== -1 ? paramEnd : pathLength
-                //
-                //    if (!params) {
-                //        params = {}
-                //    }
-                //
-                //    params[child.path.substr(1)] = path.substr(offset, paramEnd - offset)
-                //
-                //    offset = paramEnd
-                //    node = child
-                //
-                //    continue node_loop
-                //} else if (child.type === Node.CATCHALL) {
-                //    if (!params) {
-                //        params = {}
-                //    }
-                //
-                //    params[child.path.substr(1)] = path.substr(offset)
-                //
-                //    offset = path.length
-                //    node = child
-                //
-                //    continue node_loop
-                //}
             }
 
             break
