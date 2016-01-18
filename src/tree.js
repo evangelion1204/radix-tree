@@ -242,6 +242,12 @@ export class Tree {
         return this
     }
 
+    removeAll() {
+        this.root = null
+
+        return this
+    }
+
     countParams(path) {
         let matches = path.match(/:|\*/g)
 

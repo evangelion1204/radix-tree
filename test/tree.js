@@ -326,4 +326,18 @@ describe('Tree', function() {
         expect(instance.find('/api/users')).to.be.ok
         expect(instance.find('/api/addresses')).to.be.ok
     })
+
+    it('clearing the tree should drop all nodes/paths', function () {
+        let instance = new Tree()
+
+        instance.add('/api/users')
+        instance.add('/api/users/new')
+        instance.add('/api/users/delete')
+
+        instance.removeAll()
+
+        expect(instance.find('/api/users')).to.not.be.ok
+        expect(instance.find('/api/users/new')).to.not.be.ok
+        expect(instance.find('/api/users/delete')).to.not.be.ok
+    })
 })
