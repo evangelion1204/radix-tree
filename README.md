@@ -39,6 +39,14 @@ instance.add('/my_path/sub_path')
 instance.remove('/my_path/sub_path') // will only remove /sub_path
 ```
 
+### Clearing
+
+Its also possible to clear all routes at once.
+
+```js
+instance.removeAll()
+```
+
 ### Priority
 
 With version 0.2.0 routes are internally sorted by priority and no longer handled FIFO, routes with many childs have a higher priority and are scanned earlier.
