@@ -89,6 +89,15 @@ describe('Tree', function() {
     })
 
 
+    it('should also work with very similar paths', function () {
+        let instance = new Tree()
+
+        instance.add('/test1')
+
+        expect(instance.find('/test1')).to.be.ok
+        expect(instance.find('/test2')).to.be.not.ok
+    })
+
     it('should return the node on exact match of the path', function () {
         let instance = new Tree()
 
