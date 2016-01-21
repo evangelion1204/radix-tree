@@ -1,6 +1,6 @@
 {
   "name": "radix-tree",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Node.js version of a radix tree usable for routers or url path based storage.",
   "main": "index.js",
   "engines": {

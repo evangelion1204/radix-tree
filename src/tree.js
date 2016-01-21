@@ -173,7 +173,7 @@ export class Tree {
                 let child = node.children[index]
 
                 if (child.type === Node.DEFAULT) {
-                    if ( path[offset] === child.path[0] ) {
+                    if ( path[offset] === child.path[0] && path.indexOf(child.path, offset) === offset ) {
                         node = child
                         offset += node.path.length
 
@@ -291,7 +291,7 @@ export class Tree {
                 let child = node.children[index]
 
                 if (child.type === Node.DEFAULT) {
-                    if ( path[offset] === child.path[0] ) {
+                    if ( path[offset] === child.path[0] && path.indexOf(child.path, offset) === offset ) {
                         node = child
                         offset += node.path.length
 
