@@ -139,11 +139,32 @@ describe('Tree', function() {
     it('should return the catchall param', function () {
         let instance = new Tree()
 
+        instance.add('/')
+        instance.add('/:id')
+
+        expect(instance.find('/')).to.deep.equal({path: '/'})
+        expect(instance.find('/some')).to.deep.equal({path: '/:id', params: {id: 'some'}})
+    })
+
+
+    it('should return the catchall param', function () {
+        let instance = new Tree()
+
         instance.add('/users')
         instance.add('/users/*api')
 
         expect(instance.find('/users')).to.deep.equal({path: '/users'})
         expect(instance.find('/users/some/path')).to.deep.equal({path: '/users/*api', params: {api: 'some/path'}})
+    })
+
+    it('should return the catchall param', function () {
+        let instance = new Tree()
+
+        instance.add('/')
+        instance.add('/*api')
+
+        expect(instance.find('/')).to.deep.equal({path: '/'})
+        expect(instance.find('/some/path')).to.deep.equal({path: '/*api', params: {api: 'some/path'}})
     })
 
     it('should be possible to mix both types', function () {
