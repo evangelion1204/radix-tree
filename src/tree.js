@@ -112,11 +112,13 @@ export class Tree {
                     throw new Error('Param node can not be appended to an already existing path')
                 }
 
-                child.path = path.substr(offset, index - offset)
+                if (offset < index - offset) {
+                    child.path = path.substr(offset, index - offset)
 
-                offset = index
-                node.append(child)
-                node = child
+                    offset = index
+                    node.append(child)
+                    node = child
+                }
 
                 child = new Node()
                 child.type = Node.PARAM
@@ -125,11 +127,13 @@ export class Tree {
                     throw new Error('Param node can not be appended to an already existing path')
                 }
 
-                child.path = path.substr(offset, index - offset)
+                if (offset < index - offset) {
+                    child.path = path.substr(offset, index - offset)
 
-                offset = index
-                node.append(child)
-                node = child
+                    offset = index
+                    node.append(child)
+                    node = child
+                }
 
                 child = new Node()
                 child.type = Node.CATCHALL
